@@ -1,113 +1,66 @@
 # ⚽ TransferLens
 
-<h3 align="center">
-AI-Driven Football Transfer & Player Market Analytics
-</h3>
-
 <p align="center">
-Machine Learning • Football Analytics • Feature Engineering • Predictive Modeling
+  <strong>AI-Driven Football Transfer & Player Valuation Analytics</strong>
 </p>
 
 <p align="center">
+  Machine learning • Football Analytics • Feature Engineering • Predictive Modeling
+</p>
 
-![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![CatBoost](https://img.shields.io/badge/CatBoost-ML-orange?style=for-the-badge)
-![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![Football Analytics](https://img.shields.io/badge/Football-Analytics-2E7D32?style=for-the-badge)
-
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python" />
+  <img src="https://img.shields.io/badge/CatBoost-ML-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn" />
+  <img src="https://img.shields.io/badge/Football-Analytics-green?style=for-the-badge" />
 </p>
 
 ---
 
 ## 🧠 What is TransferLens?
 
-**TransferLens** is an AI-driven football analytics system designed to analyze player information, transfer activity and market value using machine learning.
+**TransferLens** is an AI-driven football analytics system built to explore and predict player transfer activity and market value using machine learning.
 
-The project combines football data from multiple dimensions and transforms it into structured features that can be used for predictive modeling.
+Instead of looking at football transfers as isolated events, TransferLens combines multiple dimensions of football data to identify patterns that can help understand **why a player may become a transfer candidate and how different player characteristics relate to market value.**
 
-Rather than treating a football transfer as an isolated event, TransferLens attempts to identify relationships between:
+The project brings together:
 
-- 👤 Player profiles
-- 📈 Player performance
-- 💰 Market values
-- 🔄 Transfer histories
-- 🏥 Injury histories
-- 🌍 National-team performance
-- 🏟️ Team information
-- 🏆 Competition and season information
-- 🔗 Player/team relationships
-
-The overall idea is to connect **football data → feature engineering → machine learning → prediction → analysis**.
+> **Football Data → Feature Engineering → Machine Learning → Prediction → Analysis**
 
 ---
 
-# 🎯 Project Objectives
+# 🎯 What Does It Do?
 
-TransferLens currently focuses on two major machine-learning problems.
+TransferLens currently focuses on **two major prediction problems**:
 
-### 🔄 1. Transfer Prediction
+### 🔄 Transfer Prediction
 
-Predict whether a football player is likely to be involved in a transfer using engineered football-related features.
+Predicts whether a player is likely to be involved in a transfer using engineered football features.
 
-The model learns patterns from player, performance, market and transfer-related information.
+### 💰 Market Value Prediction
 
----
+Uses player and football-related characteristics to estimate a player's market value.
 
-### 💰 2. Market Value Prediction
-
-Estimate a player's market value using player and football-related characteristics.
-
-This creates a second analytical layer that can complement transfer prediction and provide additional insight into the football transfer market.
+Together, these models form the foundation of a football analytics system focused on the **transfer market**.
 
 ---
 
-# 🏗️ Project Architecture
+# 🏆 Transfer Prediction Model
 
-TransferLens follows a complete machine-learning pipeline:
+The current successful transfer-prediction experiment uses:
+
+| Component | Details |
+|---|---|
+| 🤖 Model | **CatBoost** |
+| 🧩 Features | **72 engineered features** |
+| 🎚️ Decision Threshold | **0.51** |
+| 🎯 Test Accuracy | **86.02%** |
+| 📈 ROC-AUC | **0.9296** |
+| ⚖️ F1 Score | **0.7191** |
+
+### 📊 Model Performance
 
 ```text
-                    ┌─────────────────────┐
-                    │   Football Data     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Data Collection   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Data Cleaning &     │
-                    │ Validation          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Feature Engineering │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Dataset Preparation │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Model Training    │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Model Tuning /      │
-                    │ Comparison          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │  Model Evaluation   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │     Prediction      │
-                    └─────────────────────┘
+Test Accuracy     █████████████████░░░  86.02%
+ROC-AUC           ██████████████████░░  0.9296
+F1 Score          ██████████████░░░░░░  0.7191
