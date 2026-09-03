@@ -1,0 +1,233 @@
+feature,importance
+numerical__max_market_value,0.9333889720891395
+numerical__age,0.024804710120518266
+numerical__minutes_played,0.005497490285918179
+numerical__goals_per_90,0.0037325536739399893
+numerical__appearances,0.00358193931676396
+numerical__starts_ratio,0.0023311024453592064
+numerical__yellow_cards,0.0020238034213111837
+categorical__nationality_th THA,0.0016997293681080003
+categorical__nationality_tt TRI,0.0016928518166632702
+categorical__nationality_mg MAD,0.0015603411393683654
+categorical__club_Nice,0.0014148400561923727
+"categorical__position_DF,FW",0.0013969373245111862
+categorical__club_Freiburg,0.0012903149000543326
+categorical__nationality_mx MEX,0.0011768781317130915
+categorical__nationality_mr MTN,0.00107095313522686
+categorical__club_Villarreal,0.000984559671680496
+"categorical__position_MF,FW",0.0008989364672603544
+categorical__club_Manchester Utd,0.0008810108978363632
+categorical__club_Lyon,0.0008462031882016949
+categorical__club_Angers,0.0008412143407620171
+categorical__club_Udinese,0.000523388940488195
+categorical__club_Hamburger SV,0.000492323869664459
+categorical__position_MF,0.0004594331366095646
+categorical__club_Dortmund,0.00045491937336057724
+numerical__assists,0.000438517799262176
+categorical__club_RB Leipzig,0.00043563313502528294
+categorical__club_Real Madrid,0.00040865384311970825
+categorical__club_Bologna,0.00040471757017351856
+numerical__starts,0.000395253038811595
+categorical__position_DF,0.0003947864200347737
+categorical__club_Getafe,0.00034215100007379694
+categorical__club_Oviedo,0.0003408361331948874
+categorical__nationality_fr FRA,0.00033069351785883374
+categorical__nationality_ve VEN,0.00032864062391901573
+categorical__nationality_br BRA,0.00032267578415679714
+categorical__nationality_de GER,0.00030348046307886916
+categorical__club_Girona,0.00027829508283967107
+categorical__nationality_cg CGO,0.0002610051298629276
+categorical__club_Köln,0.0001804452560050189
+categorical__league_de Bundesliga,0.00017202814038676267
+categorical__club_Bayern Munich,0.00016151956821650453
+categorical__nationality_sn SEN,0.00015995761394750193
+categorical__club_Union Berlin,0.00014711656173289547
+categorical__nationality_rs SRB,0.0001113528360911692
+categorical__club_Fulham,9.937282542252151e-05
+categorical__club_Toulouse,9.537470277567549e-05
+categorical__nationality_us USA,8.993741793833112e-05
+numerical__penalties_scored,8.749352170658842e-05
+categorical__club_Nantes,7.104464122103935e-05
+categorical__position_GK,6.586642653634503e-05
+numerical__goals,5.828988676255701e-05
+categorical__club_Cagliari,5.663716394507791e-05
+numerical__assists_per_90,5.540154780182566e-05
+categorical__nationality_dz ALG,4.537786244960037e-05
+categorical__club_Auxerre,3.993664516761687e-05
+categorical__nationality_it ITA,3.314259581704835e-05
+categorical__club_Lens,3.265698365069633e-05
+categorical__club_Paris Saint-Germain,2.894434590402074e-05
+categorical__club_Genoa,2.7451795143951613e-05
+categorical__position_FW,2.552692102939229e-05
+"categorical__position_DF,MF",1.59441661904038e-05
+numerical__red_cards,1.4221693941085489e-05
+categorical__nationality_me MNE,1.251892756647458e-05
+categorical__club_Werder Bremen,1.2478059210153861e-05
+categorical__league_fr Ligue 1,1.2065284456129406e-05
+categorical__club_Leverkusen,1.0872580338681526e-05
+categorical__nationality_eng ENG,6.610859129989767e-06
+categorical__club_Lille,5.953767674099014e-06
+categorical__league_eng Premier League,4.694730220051996e-06
+categorical__club_Brest,4.501621422734335e-06
+categorical__club_Elche,4.497859254157909e-06
+categorical__league_es La Liga,4.0433118987713485e-06
+categorical__club_Atlético Madrid,3.6881989443672283e-06
+categorical__club_Wolves,3.5647878350668014e-06
+categorical__club_Le Havre,2.954604454299e-06
+categorical__club_Marseille,2.7360334838685922e-06
+categorical__league_it Serie A,2.2591275330039484e-06
+categorical__nationality_es ESP,7.72474731449002e-07
+categorical__club_Real Sociedad,0.0
+categorical__club_Brighton,0.0
+categorical__club_Sassuolo,0.0
+categorical__club_Roma,0.0
+categorical__club_Burnley,0.0
+categorical__club_Rennes,0.0
+categorical__club_Celta Vigo,0.0
+categorical__club_Brentford,0.0
+categorical__club_Real Betis,0.0
+categorical__club_Chelsea,0.0
+categorical__club_Como,0.0
+categorical__club_Rayo Vallecano,0.0
+categorical__club_Sevilla,0.0
+categorical__club_St Pauli,0.0
+categorical__club_Bournemouth,0.0
+categorical__club_Crystal Palace,0.0
+categorical__club_Strasbourg,0.0
+categorical__club_Stuttgart,0.0
+categorical__club_Sunderland,0.0
+categorical__club_Torino,0.0
+categorical__club_Tottenham Hotspur,0.0
+categorical__club_Valencia,0.0
+categorical__club_West Ham United,0.0
+categorical__club_Wolfsburg,0.0
+categorical__club_Barcelona,0.0
+categorical__club_Augsburg,0.0
+categorical__club_Cremonese,0.0
+categorical__club_Liverpool,0.0
+categorical__club_Levante,0.0
+categorical__club_Heidenheim,0.0
+categorical__club_Lorient,0.0
+categorical__club_Leeds United,0.0
+categorical__club_Lecce,0.0
+categorical__club_Athletic Club,0.0
+categorical__club_Mallorca,0.0
+categorical__club_Lazio,0.0
+categorical__club_Manchester City,0.0
+categorical__club_Metz,0.0
+categorical__club_Juventus,0.0
+categorical__club_Inter,0.0
+categorical__club_Hoffenheim,0.0
+categorical__club_Hellas Verona,0.0
+categorical__club_Milan,0.0
+categorical__club_Pisa,0.0
+categorical__club_Gladbach,0.0
+categorical__club_Monaco,0.0
+categorical__club_Napoli,0.0
+categorical__club_Newcastle United,0.0
+categorical__club_Nottingham Forest,0.0
+categorical__club_Osasuna,0.0
+categorical__club_Paris FC,0.0
+categorical__club_Fiorentina,0.0
+categorical__club_Everton,0.0
+categorical__club_Espanyol,0.0
+categorical__club_Parma,0.0
+categorical__club_Eintracht Frankfurt,0.0
+categorical__club_Mainz 05,0.0
+categorical__nationality_wls WAL,0.0
+categorical__club_Atalanta,0.0
+categorical__club_Aston Villa,0.0
+categorical__nationality_do DOM,0.0
+categorical__nationality_ec ECU,0.0
+categorical__nationality_ee EST,0.0
+categorical__nationality_eg EGY,0.0
+categorical__nationality_fi FIN,0.0
+categorical__nationality_fo FRO,0.0
+categorical__nationality_ga GAB,0.0
+categorical__nationality_ge GEO,0.0
+categorical__nationality_gf GUF,0.0
+categorical__nationality_gh GHA,0.0
+categorical__nationality_gm GAM,0.0
+categorical__nationality_gn GUI,0.0
+categorical__nationality_gp GLP,0.0
+categorical__nationality_gq EQG,0.0
+categorical__nationality_gr GRE,0.0
+categorical__nationality_gw GNB,0.0
+categorical__nationality_hn HON,0.0
+categorical__nationality_hr CRO,0.0
+categorical__nationality_ht HAI,0.0
+categorical__nationality_hu HUN,0.0
+categorical__nationality_id IDN,0.0
+categorical__nationality_dk DEN,0.0
+categorical__nationality_cz CZE,0.0
+categorical__nationality_cy CYP,0.0
+categorical__nationality_bf BFA,0.0
+categorical__nationality_al ALB,0.0
+categorical__nationality_am ARM,0.0
+categorical__nationality_ao ANG,0.0
+categorical__nationality_ar ARG,0.0
+categorical__nationality_at AUT,0.0
+categorical__nationality_au AUS,0.0
+categorical__nationality_ba BIH,0.0
+categorical__nationality_bb BRB,0.0
+categorical__nationality_be BEL,0.0
+categorical__nationality_bg BUL,0.0
+categorical__nationality_co COL,0.0
+categorical__nationality_bi BDI,0.0
+categorical__nationality_bj BEN,0.0
+categorical__nationality_ca CAN,0.0
+categorical__nationality_cd COD,0.0
+categorical__nationality_cf CTA,0.0
+categorical__nationality_ch SUI,0.0
+categorical__nationality_ci CIV,0.0
+categorical__nationality_cl CHI,0.0
+categorical__nationality_cm CMR,0.0
+categorical__nationality_ie IRL,0.0
+categorical__nationality_il ISR,0.0
+categorical__nationality_is ISL,0.0
+categorical__nationality_ua UKR,0.0
+categorical__nationality_sa KSA,0.0
+categorical__nationality_sct SCO,0.0
+categorical__nationality_se SWE,0.0
+categorical__nationality_si SVN,0.0
+categorical__nationality_sk SVK,0.0
+categorical__nationality_sr SUR,0.0
+categorical__nationality_tg TOG,0.0
+categorical__nationality_tn TUN,0.0
+categorical__nationality_tr TUR,0.0
+categorical__nationality_uy URU,0.0
+categorical__nationality_ro ROU,0.0
+categorical__nationality_uz UZB,0.0
+categorical__nationality_xk KVX,0.0
+categorical__nationality_za RSA,0.0
+categorical__nationality_zm ZAM,0.0
+categorical__nationality_zw ZIM,0.0
+"categorical__position_FW,MF",0.0
+"categorical__position_MF,DF",0.0
+categorical__club_Alavés,0.0
+categorical__club_Arsenal,0.0
+categorical__nationality_ru RUS,0.0
+categorical__nationality_py PAR,0.0
+categorical__nationality_jm JAM,0.0
+categorical__nationality_ml MLI,0.0
+categorical__nationality_jo JOR,0.0
+categorical__nationality_jp JPN,0.0
+categorical__nationality_ke KEN,0.0
+categorical__nationality_km COM,0.0
+categorical__nationality_kr KOR,0.0
+categorical__nationality_lu LUX,0.0
+categorical__nationality_ly LBY,0.0
+categorical__nationality_ma MAR,0.0
+categorical__nationality_mk MKD,0.0
+categorical__nationality_my MAS,0.0
+categorical__nationality_pt POR,0.0
+categorical__nationality_mz MOZ,0.0
+categorical__nationality_ng NGA,0.0
+categorical__nationality_nir NIR,0.0
+categorical__nationality_nl NED,0.0
+categorical__nationality_no NOR,0.0
+categorical__nationality_nz NZL,0.0
+categorical__nationality_pa PAN,0.0
+categorical__nationality_pe PER,0.0
+categorical__nationality_pl POL,0.0
+categorical__season_2025-26,0.0

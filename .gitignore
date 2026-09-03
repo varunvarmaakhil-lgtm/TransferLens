@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Large raw datasets
+data/raw/
+datalake/
+
+# Temporary files
+*.log
