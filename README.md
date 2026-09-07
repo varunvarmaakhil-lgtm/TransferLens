@@ -1,66 +1,109 @@
-# ⚽ TransferLens
+# TransferLens
+
+<h3 align="center">
+AI-Driven Football Transfer & Player Market Analytics
+</h3>
 
 <p align="center">
-  <strong>AI-Driven Football Transfer & Player Valuation Analytics</strong>
+Machine Learning • Football Analytics • Feature Engineering • Predictive Modeling
 </p>
 
-<p align="center">
-  Machine learning • Football Analytics • Feature Engineering • Predictive Modeling
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python" />
-  <img src="https://img.shields.io/badge/CatBoost-ML-orange?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn" />
-  <img src="https://img.shields.io/badge/Football-Analytics-green?style=for-the-badge" />
-</p>
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![CatBoost](https://img.shields.io/badge/CatBoost-ML-orange?style=for-the-badge)
+![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Football Analytics](https://img.shields.io/badge/Football-Analytics-2E7D32?style=for-the-badge)
 
 ---
 
-## 🧠 What is TransferLens?
+## What is TransferLens?
 
-**TransferLens** is an AI-driven football analytics system built to explore and predict player transfer activity and market value using machine learning.
+**TransferLens** is an AI-driven football analytics system designed to analyze player information, transfer activity, and market value using machine learning.
 
-Instead of looking at football transfers as isolated events, TransferLens combines multiple dimensions of football data to identify patterns that can help understand **why a player may become a transfer candidate and how different player characteristics relate to market value.**
+The project combines football data from multiple dimensions and transforms it into structured features that can be used for predictive modeling.
 
-The project brings together:
+Rather than treating a football transfer as an isolated event, TransferLens attempts to identify relationships between:
+
+- Player profiles
+- Player performance
+- Market values
+- Transfer histories
+- Injury histories
+- National-team performance
+- Team information
+- Competition and season information
+- Player/team relationships
+
+The overall idea is to connect:
 
 > **Football Data → Feature Engineering → Machine Learning → Prediction → Analysis**
 
 ---
 
-# 🎯 What Does It Do?
+# Project Objectives
 
-TransferLens currently focuses on **two major prediction problems**:
+TransferLens currently focuses on two major machine-learning problems.
 
-### 🔄 Transfer Prediction
+### 1. Transfer Prediction
 
-Predicts whether a player is likely to be involved in a transfer using engineered football features.
+Predict whether a football player is likely to be involved in a transfer using engineered football-related features.
 
-### 💰 Market Value Prediction
+The model learns patterns from player, performance, market, and transfer-related information.
 
-Uses player and football-related characteristics to estimate a player's market value.
+### 2. Market Value Prediction
 
-Together, these models form the foundation of a football analytics system focused on the **transfer market**.
+Estimate a player's market value using player and football-related characteristics.
+
+This creates a second analytical layer that can complement transfer prediction and provide additional insight into the football transfer market.
 
 ---
 
-# 🏆 Transfer Prediction Model
+# Project Architecture
 
-The current successful transfer-prediction experiment uses:
-
-| Component | Details |
-|---|---|
-| 🤖 Model | **CatBoost** |
-| 🧩 Features | **72 engineered features** |
-| 🎚️ Decision Threshold | **0.51** |
-| 🎯 Test Accuracy | **86.02%** |
-| 📈 ROC-AUC | **0.9296** |
-| ⚖️ F1 Score | **0.7191** |
-
-### 📊 Model Performance
+TransferLens follows a complete machine-learning pipeline:
 
 ```text
-Test Accuracy     █████████████████░░░  86.02%
-ROC-AUC           ██████████████████░░  0.9296
-F1 Score          ██████████████░░░░░░  0.7191
+                    ┌─────────────────────┐
+                    │   Football Data     │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Data Collection   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Data Cleaning &     │
+                    │ Validation          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Feature Engineering │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Dataset Preparation │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Model Training    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Model Tuning /      │
+                    │ Comparison          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │  Model Evaluation   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     Prediction      │
+                    └─────────────────────┘
