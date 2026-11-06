@@ -1,49 +1,71 @@
-# TransferLens
+# TransferLens AI
 
-AI-assisted football recruitment and decision support for Europe's Big-5 leagues. Work in progress.
+AI-assisted football recruitment for Europe's top leagues. Ask in plain English who could replace a striker, whether a player is undervalued, or why he might move. Every number comes from a validated model or a database query; a small local language model only chooses tools and explains their results.
 
-The goal: ask in plain English why a player is likely to move, who fits a club, what a fair price is, and what squad a budget buys. Every number comes from ML models, SQL and an optimiser; a small local language model only chooses tools and explains their results.
+## Results
 
-## Status
+| Component | How it was tested | Result |
+| --- | --- | --- |
+| Transfer prediction (will a player change club next season?) | Season by season, each test season unseen in training | ROC-AUC 0.73 (2019-2024), 0.75 on 2022-2024 for the live model; logistic regression 0.68 |
+| Fair-price ranges (80% interval for market value) | Season by season, conformal calibration | 79.8% of real values inside the range; median error 19.8% vs 31.7% for last season's value |
+| Similar-player search | A player's previous-season profile must find himself among ~366 same-position players | Top 10 in 34.1% of cases vs 3.3% by chance |
+| Explanations (SHAP) | Contributions must sum to each prediction | Max error 1.8e-14 |
+| Agent (local Qwen3 8B, 7 tools) | Manual question set, grounding check on every answer | Comparisons and rankings computed in code; untraced numbers sent back for correction |
 
-**Phase 1 complete: an honest transfer model.**
+## The honest-evaluation story
 
-- Predicts whether a player changes club after the current season.
-- **ROC-AUC 0.730 (sd 0.022)**, tested season by season on 2019-2024, each season unseen in training. Logistic regression on the same features: 0.680.
-- An earlier version claimed 86% accuracy (0.93 ROC-AUC). An audit found a random-split leak and a label that drifted with data coverage, so that figure is withdrawn. The full story is in [EVALUATION.md](EVALUATION.md).
+The first version reported 86% accuracy and 0.93 ROC-AUC. An audit found two problems:
 
-| Version | ROC-AUC |
-| --- | --- |
-| Original: random split, transfer-record label | 0.93 (invalid) |
-| Season-by-season, label rebuilt from match appearances | 0.642 |
-| + 17 time-safe club and playing-time features | **0.730** |
+1. **Random split.** 84% of test rows belonged to players already in training (0.92 random vs 0.81 grouped by player).
+2. **Label drift.** Transfer records are four times sparser in early seasons (4,055 in 2012/13 vs 17,379 in 2023/24), so the label rose from 7% to 51% for reasons that had nothing to do with football.
 
-What drives a move: the club's final league position and win rate, the player's share of appearances, squad size and squad value. Players leave struggling clubs and clubs where they do not play.
+The label was rebuilt from 1.9M match appearances (a change of main club between seasons), every model is now tested season by season, and the honest score rose from 0.64 to 0.73 with 17 time-safe club and playing-time features. Full details: EVALUATION.md.
 
-## How it works
+## Example
 
-- **Data:** the open Nodeball Football Datalake (Transfermarkt-based) in DuckDB: 1.9M match appearances, market valuations, games and clubs, 2012-2026.
-- **Label:** a player's main club is the club he played the most minutes for; label = 1 if it changes from season t to t+1.
-- **Features:** 84 per player-season, all computed from data available at the end of that season.
-- **Model:** CatBoost, rolling-origin evaluation (train up to T-2, tune on T-1, test on T).
+    you> Compare Archie Gray and Warren Zaire-Emery: who is the better value signing right now?
+      -> compare_players(names=['Archie Gray', 'Warren Zaire-Emery'])
+    Better value (largest gap between fair value and market value): Warren Zaire-Emery (Archie Gray 20.3M gap, Warren Zaire-Emery 44.2M gap).
+    Cheaper: Archie Gray (35.0M vs 60.0M).
+    [1 tool call: compare_players | grounding: 10/10 numbers traced to tool outputs]
+
+## Architecture
+
+    Transfermarkt datalake (DuckDB: appearances, valuations, games, clubs)
+      -> build_label.py, features_v2.py, build_player_seasons.py   one time-safe player-season table
+      -> transfer_now.py   CatBoost transfer model
+      -> fair_price.py     CatBoost 10/50/90 quantiles + conformal calibration
+      -> similar.py        weighted profile search within sub-position
+      -> explain.py        SHAP drivers for every player
+      -> tools.py          7 tools with JSON schemas, validated in code
+      -> agent.py          Qwen3 8B via Ollama, tool loop, grounding self-check
+
+## Design rules for the language model
+
+- The model never calculates, compares or ranks; tools return verdicts computed in code.
+- Every tool argument is validated (types, ranges, known names and positions) before it runs.
+- Every number in an answer is checked against tool outputs; untraced numbers go back to the model once.
+
+## Run it
+
+    brew install ollama && brew services start ollama && ollama pull qwen3:8b
+    python agent.py "Find 5 centre-backs under 23 who are undervalued"
 
 ## Roadmap
 
 1. Honest evaluation and transfer model (done)
-2. Fair-price ranges with uncertainty, undervalued-player detection, player similarity search
-3. Tool layer with strict schemas plus a local open model (Qwen or Llama via Ollama)
-4. SHAP explanations for every prediction
+2. Fair-price ranges, undervalued detection, similarity search (done)
+3. Local agent with validated tools (done)
+4. SHAP explanations (done)
 5. Squad and budget optimiser (integer programming with PuLP)
-6. Agent evaluation on 50 known-answer questions, Streamlit app, demo
+6. 50-question agent test set, Streamlit app, demo
 
-## Repository
+## Limitations
 
-- build_label.py, features_v2.py: label and features
-- rolling_eval2.py, train_final.py: evaluation and final model
-- time_split_eval.py, diag2.py: leakage diagnostics
-- results/: every metric quoted above, as CSV
-- app.py: current Streamlit app (to be rebuilt in Phase 6)
+- Market values are Transfermarkt estimates, not transfer fees; the fair-price model leans on reputation (last value, club squad value).
+- No contract, wage or injury history, so availability is only partly captured.
+- About a third of player-seasons have no next-season appearances (retired or left the covered leagues) and are excluded from the transfer label.
 
-## Data credit
+## Data
 
-Data from the Nodeball Football Datalake by salimt (github.com/salimt), built on Transfermarkt. The datalake's own documentation is in README_datalake.md.
+Nodeball Football Datalake by salimt (github.com/salimt), built on Transfermarkt. See README_datalake.md.

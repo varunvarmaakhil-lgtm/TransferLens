@@ -249,6 +249,65 @@ def compare_players(names):
     return {"players": out, "comparison_computed_in_code": verdict, "verdicts_use_these": sentences}
 
 
+LABELS = {"minutes_share": "share of club minutes", "apps_share": "share of club appearances",
+          "minutes_share_change": "change in minutes share vs last season", "club_tenure": "seasons at current club",
+          "new_arrival": "joined the club this season", "squad_size": "squad size",
+          "minutes_rank_pct": "minutes rank in squad (0 = most)", "club_turnover": "club squad turnover",
+          "mv_end": "market value", "mv_log_change": "market value change vs last season",
+          "mv_vs_peak": "market value vs career peak", "mv_vs_club_median": "market value vs squad median",
+          "club_median_mv": "club squad median value", "mv_rank_in_club_pct": "value rank in squad (0 = highest)",
+          "club_win_rate": "club win rate", "club_managers": "managers at club this season",
+          "club_final_position": "club league finish", "age": "age", "goals": "goals", "assists": "assists",
+          "goals_p90": "goals per 90", "assists_p90": "assists per 90", "ga_p90": "goals plus assists per 90",
+          "minutes_all": "minutes played", "apps_all": "appearances", "height_in_cm": "height (cm)",
+          "main_comp": "league", "sub_position": "position", "position": "position group",
+          "country_of_citizenship": "nationality", "foot": "preferred foot",
+          "prev_moved_rate": "share of past seasons with a club change", "prev_moves": "number of past club changes",
+          "mv_end_prev1": "market value last season", "mv_end_prev2": "market value two seasons ago",
+          "mv_peak_prev": "career peak market value before this season", "ga_p90_prev1": "goals plus assists per 90 last season",
+          "minutes_share_prev1": "minutes share last season", "minutes_all_prev1": "minutes played last season",
+          "seasons_in_data": "seasons in the data", "yellow": "yellow cards", "red": "red cards"}
+
+
+def _fmt_value(feature, v):
+    if v is None or (isinstance(v, float) and pd.isna(v)):
+        return "unknown"
+    if isinstance(v, str):
+        try:
+            v = float(v)
+        except ValueError:
+            return "unknown" if v in ("missing", "nan", "None") else v
+        if pd.isna(v):
+            return "unknown"
+    if ("share" in feature and "rank" not in feature) or feature in ("club_win_rate", "club_turnover", "prev_moved_rate"):
+        return "%.0f%%" % (100 * v)
+    if feature.startswith("mv_end") or feature in ("club_median_mv", "mv_peak_prev"):
+        return "EUR %.1fM" % (v / 1e6)
+    if feature in ("new_arrival",):
+        return "yes" if v >= 0.5 else "no"
+    return "%g" % round(v, 2)
+
+
+def explain_player(name, k=5):
+    r, err = _resolve(name)
+    if err:
+        return err
+    if "ex" not in _cache:
+        _cache["ex"] = pd.read_csv(D + "explanations_%d.csv" % SEASON)
+    ex = _cache["ex"][_cache["ex"]["player_id"] == r["player_id"]]
+    out = {"name": r["name"], "club": r["club_name"],
+           "move_probability_pct": _r(100 * r["p_move"], 0), "fair_mid_eur_m": _m(r["fair_mid"]),
+           "method": "SHAP contributions from the CatBoost models; drivers ranked by size; direction computed in code"}
+    for model, key, up, down in [("transfer", "why_move_probability", "raises move probability", "lowers move probability"),
+                                 ("fairprice", "why_fair_value", "raises fair value", "lowers fair value")]:
+        e = ex[ex["model"] == model].sort_values("rank").head(k)
+        out[key] = ["%s = %s: %s (%s)" % (LABELS.get(x.feature, x.feature.replace("_", " ")),
+                                           _fmt_value(x.feature, x.value if isinstance(x.value, str) else
+                                                      (None if pd.isna(x.value) else float(x.value))),
+                                           up if x.shap > 0 else down, x.strength) for x in e.itertuples()]
+    return out
+
+
 def _fn(name, desc, props, required):
     return {"type": "function", "function": {"name": name, "description": desc, "parameters": {
         "type": "object", "properties": props, "required": required}}}
@@ -261,6 +320,9 @@ SCHEMAS = [
     _fn("compare_players", "Compare 2-4 named players side by side. Returns which one is cheaper, more productive, "
         "better value and more likely to move, computed in code. Use this for any comparison.",
         {"names": {"type": "array", "items": {"type": "string"}, "description": "2-4 player names"}}, ["names"]),
+    _fn("explain_player", "Why the models rate a player as they do: top drivers of his move probability and of "
+        "his fair value, each with direction and strength. Use for any why question.",
+        {"name": NAME, "k": {"type": "integer", "description": "Drivers per model, 1-8, default 5"}}, ["name"]),
     _fn("transfer_probability", "Model probability (percent) that one player changes club after this season.",
         {"name": NAME}, ["name"]),
     _fn("fair_price", "Model fair market value range (EUR millions) for one player and whether he is undervalued.",
@@ -282,7 +344,7 @@ SCHEMAS = [
          "k": {"type": "integer", "description": "How many players, 1-15, default 5"},
          "exclude_club": {"type": "string", "description": "Leave out players already at this club, e.g. the user's own club"}}, []),
 ]
-TOOLS = {"find_player": find_player, "compare_players": compare_players, "transfer_probability": transfer_probability,
+TOOLS = {"find_player": find_player, "explain_player": explain_player, "compare_players": compare_players, "transfer_probability": transfer_probability,
          "fair_price": fair_price, "similar_players": similar_players, "search_players": search_players}
 LIMITS = {"k": (1, 15), "max_age": (15, 45), "max_value_eur_m": (0, 500), "min_value_eur_m": (0, 500),
           "min_minutes_share": (0, 1)}
