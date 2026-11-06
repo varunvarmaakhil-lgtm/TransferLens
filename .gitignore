@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*_log.txt
+leak_check*.txt
+data/
+*.duckdb
+*.joblib
+*.pkl
+*.cbm
+catboost_info/
